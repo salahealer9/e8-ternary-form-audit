@@ -4,9 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "e8-ternary-form-audit"
-version = "0.0.1"
-description = "Reproducible mathematical investigation of ternary forms motivated by g(v1,v2,v3), with primary focus on E8."
+version = "1.0.0"
+description = "Exact sparse realization and reproducibility audit of the E8 Cartan 3-form."
+readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Salah-Eddin Gherbi" },
+]
 dependencies = [
     "numpy>=1.26",
 ]

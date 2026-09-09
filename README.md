@@ -1,60 +1,225 @@
-# E8:contentReference[oaicite:0]{index=0}cal investigation of ternary structures motivated by
-the remembered notation
+# E8 Ternary Form Audit
 
-    g(v1, v2, v3)
+**Exact sparse realization of the \(E_8\) Cartan 3-form**
 
-with primary attention to exceptional Lie theory and the E8 root system.
+This repository provides the computational realization, exact data artifacts,
+validation suite, and reproducibility record accompanying the manuscript
 
-## Scientific status
+> **An Exact Sparse Realization of the \(E_8\) Cartan 3-Form**  
+> Salah-Eddin Gherbi  
+> Independent Researcher, United Kingdom  
+> Manuscript version 1.0, September 2026
 
-The initiating observation is a remembered piece of notation from a dream.
+## Main result
 
-It is treated only as a hypothesis-generating observation.
+For the normalized Cartan 3-form
 
-The project does NOT assume:
+\[
+g(X,Y,Z)=B_0(X,[Y,Z])
+\]
 
-- that the notation has an external source;
-- that it refers to E8;
-- that `g` denotes a metric;
-- that the arguments are necessarily vectors;
-- that the notation encodes a previously unknown mathematical object.
+on the Chevalley \(\mathbb Q\)-form of \(\mathfrak e_8\), in the fixed
+\(\epsilon\)-canonical Chevalley basis used in this repository, the complete
+ordered basis domain contains
 
-All mathematical interpretations must be defined independently and assessed
-under frozen criteria.
+\[
+248^3=15{,}252{,}992
+\]
 
-## Initial candidate classes
+triples, of which exactly
 
-- C0 — generic three-argument function;
-- C1 — Cartan 3-form on the E8 Lie algebra;
-- C2 — G2 invariant alternating 3-form;
-- C3 — E6 cubic / symmetric trilinear structure;
-- C4 — other established ternary or cubic geometric structures.
+\[
+16{,}176
+\]
 
-The project begins with E8 because C1 provides a canonical three-vector
-structure directly associated with E8 and because E8 admits a finite,
-independently enumerable 240-root system.
+have nonzero coefficient.
 
-## Primary computational programme
+The support decomposes as
 
-1. construct the E8 root system independently;
-2. verify basic root-system invariants;
-3. enumerate zero-sum root triples;
-4. identify A2 root subsystems;
-5. construct the resulting ternary incidence structure;
-6. relate its support to the Cartan 3-form on e8;
-7. compare that structure with alternative exceptional ternary forms;
-8. evaluate the original notation under preregistered criteria.
+\[
+13{,}440\quad\text{root--root--root}
+\]
+
+and
+
+\[
+2{,}736\quad\text{Cartan--root--root}.
+\]
+
+The complete nonzero coefficient census is
+
+\[
+-2:24,\qquad
+-1:8064,\qquad
++1:8064,\qquad
++2:24.
+\]
+
+On root vectors,
+
+\[
+g(e_\alpha,e_\beta,e_\gamma)\neq0
+\quad\Longleftrightarrow\quad
+\alpha+\beta+\gamma=0.
+\]
+
+The unsigned root-sector support is therefore represented by a linear
+\(3\)-uniform hypergraph with
+
+\[
+240\ \text{vertices},\qquad
+2240\ \text{hyperedges},
+\]
+
+with degree \(28\) at every vertex.
+
+## Validation
+
+The repository implements two algorithmically distinct exact constructions of
+the sparse Cartan 3-form.
+
+The resulting signed sparse tensors agree entry-for-entry.
+
+The Lie bracket and normalized invariant form are also reconstructed
+independently of the sealed tensor. The resulting \(248\)-dimensional algebra:
+
+- closes exactly in the frozen basis;
+- is antisymmetric;
+- satisfies the Jacobi identity on all
+  \[
+  \binom{248}{3}=2{,}511{,}496
+  \]
+  distinct basis triples;
+- reproduces the sealed Cartan 3-form exactly through
+  \[
+  B_0(X,[Y,Z]);
+  \]
+- is recovered exactly from the tensor and \(B_0^{-1}\) on all
+  \[
+  248^2=61{,}504
+  \]
+  ordered basis pairs.
+
+All support and equality decisions use integer or rational arithmetic rather
+than floating-point tolerances.
+
+## Frozen tensor artifact
+
+The deterministic sparse Cartan 3-form contains \(16{,}176\) nonzero ordered
+entries.
+
+SHA-256:
+
+```text
+43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8
+```
+
+The public `v1.0.0` release and Zenodo DOI will provide the archival citation
+for this artifact.
+
+## Manuscript
+
+The current manuscript is:
+
+```text
+paper/e8_cartan_3form_manuscript_v1.0.pdf
+```
+
+Source:
+
+```text
+paper/main.tex
+paper/references.bib
+```
+
+The manuscript is mathematically self-contained: its principal support counts
+and coefficient multiplicities are derived analytically rather than inferred
+only from computer output.
 
 ## Reproducibility
 
-The project uses:
+Python 3.11 or later is required.
 
-- deterministic source code;
-- explicit reference data;
-- unit tests;
-- frozen checkpoints;
-- SHA-256 hashes;
-- signed Git commits where available;
-- separation between external benchmark values and algorithmic inputs.
+Create an environment and install the project with development dependencies:
 
-No benchmark count may be hard-coded into an enumeration algorithm.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+```
+
+Run the complete automated test suite:
+
+```bash
+pytest
+```
+
+Individual deterministic phase runners are available under `scripts/`.
+
+The release audit will additionally specify the canonical end-to-end command
+sequence for reproducing the principal frozen artifacts.
+
+## Repository structure
+
+```text
+data/          reference and derived machine-readable artifacts
+docs/          methodology, preregistration, derivations, and checkpoints
+paper/         manuscript source, bibliography, and compiled manuscript
+scripts/       deterministic phase and audit runners
+src/           reusable Python implementation
+tests/         automated validation suite
+CITATION.cff   citation metadata
+```
+
+## Scientific scope and novelty boundary
+
+The Cartan 3-form, the \(E_8\) Lie algebra, Chevalley bases, the \(E_8\) root
+system, and the associated \(A_2\) root-system counts are classical.
+
+This project does **not** claim a new \(E_8\) invariant, a new Cartan 3-form,
+a new Lie bracket, or discovery of the established \(2240\) zero-sum triples
+or \(1120\) \(A_2\) subsystems.
+
+The contribution is the explicit sparse realization, complete coefficient
+census, root-incidence representation, deterministic machine-readable
+artifact, and exact reproducibility and cross-validation architecture.
+
+## Project provenance
+
+The investigation originally began from the remembered three-argument notation
+
+\[
+g(v_1,v_2,v_3).
+\]
+
+The notation was reported after a dream and was treated strictly as a
+hypothesis-generating observation, not as mathematical evidence.
+
+The preregistered project explicitly prohibited treating notation similarity,
+visual analogy, numerology, or assumptions about the origin of the dream as
+scientific evidence.
+
+The original scope, candidate classes, preregistration, and interpretation
+criteria are retained under `docs/` as part of the research provenance.
+
+## Citation
+
+Citation metadata are provided in:
+
+```text
+CITATION.cff
+```
+
+The archival Zenodo DOI will be added after the frozen GitHub `v1.0.0` release
+has been created and deposited.
+
+## Licensing
+
+Software source code is released under the MIT License.
+
+The manuscript, research documentation, and original machine-readable research
+data are released under the Creative Commons Attribution 4.0 International
+License (CC BY 4.0), unless a file explicitly states otherwise.
+
+See `LICENSE` and `LICENSES/` for details.

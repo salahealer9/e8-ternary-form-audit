@@ -1,0 +1,45 @@
+E8 Ternary Form Audit
+Copyright (c) 2026 Salah-Eddin Gherbi
+
+This repository contains software, research data, documentation, and a
+scientific manuscript. Different components are licensed as follows.
+
+SOFTWARE
+
+Files under:
+
+    src/
+    scripts/
+    tests/
+
+together with Python packaging and software-support files, are licensed under
+the MIT License.
+
+See:
+
+    LICENSES/MIT.txt
+
+MANUSCRIPT, DOCUMENTATION, AND RESEARCH DATA
+
+Original material under:
+
+    paper/
+    docs/
+    data/
+
+together with the repository README and original research documentation, is
+licensed under the Creative Commons Attribution 4.0 International License
+(CC BY 4.0), unless a file explicitly states otherwise.
+
+See:
+
+    LICENSES/CC-BY-4.0.txt
+
+THIRD-PARTY MATERIAL
+
+This licensing notice applies only to material for which Salah-Eddin Gherbi
+holds the relevant rights. Citations, bibliographic metadata, quoted material,
+and any third-party material retain their respective rights and licenses.
+
+No license granted by this repository implies endorsement by cited authors,
+publishers, software projects, or other third parties.
