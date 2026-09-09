@@ -108,14 +108,17 @@ than floating-point tolerances.
 The deterministic sparse Cartan 3-form contains \(16{,}176\) nonzero ordered
 entries.
 
+Canonical artifact:
+
+```text
+data/derived/phase3d_signed_sparse_cartan_form.json
+```
+
 SHA-256:
 
 ```text
 43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8
 ```
-
-The public `v1.0.0` release and Zenodo DOI will provide the archival citation
-for this artifact.
 
 ## Manuscript
 
@@ -157,8 +160,20 @@ pytest
 
 Individual deterministic phase runners are available under `scripts/`.
 
-The release audit will additionally specify the canonical end-to-end command
-sequence for reproducing the principal frozen artifacts.
+The frozen `v1.0.0` release was reproduced from a fresh checkout. The
+release-candidate audit records:
+
+- 108/108 automated tests passing;
+- exact regeneration of the canonical sparse tensor;
+- byte-for-byte preservation of its SHA-256;
+- zero failures in the exhaustive Jacobi audit;
+- zero discrepancies in complete bracket recovery.
+
+The detailed release-candidate reproduction record is:
+
+```text
+docs/checkpoints/v1.0.0_release_candidate_closeout.md
+```
 
 ## Repository structure
 
@@ -211,8 +226,41 @@ Citation metadata are provided in:
 CITATION.cff
 ```
 
-The archival Zenodo DOI will be added after the frozen GitHub `v1.0.0` release
-has been created and deposited.
+The frozen reproducibility release is archived on Zenodo:
+
+**DOI: [10.5281/zenodo.22676423](https://doi.org/10.5281/zenodo.22676423)**
+
+## Archival release
+
+The frozen reproducibility release is:
+
+**v1.0.0**
+
+GitHub release:
+
+https://github.com/salahealer9/e8-ternary-form-audit/releases/tag/v1.0.0
+
+Release commit:
+
+```text
+2000d93478be897f0742191aafd173d71e481fbd
+```
+
+Zenodo DOI:
+
+**[10.5281/zenodo.22676423](https://doi.org/10.5281/zenodo.22676423)**
+
+The canonical sparse Cartan 3-form artifact is:
+
+```text
+data/derived/phase3d_signed_sparse_cartan_form.json
+```
+
+SHA-256:
+
+```text
+43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8
+```
 
 ## Licensing
 

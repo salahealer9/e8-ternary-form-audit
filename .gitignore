@@ -33,3 +33,6 @@ tmp/
 *.out
 *.synctex.gz
 *.toc
+
+# Local manuscript build output
+paper/main.pdf

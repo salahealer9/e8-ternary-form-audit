@@ -1,4 +1,9 @@
 cff-version: 1.2.0
+version: "1.0.0"
+doi: "10.5281/zenodo.22676423"
+date-released: 2026-09-09
+repository-code: "https://github.com/salahealer9/e8-ternary-form-audit"
+url: "https://github.com/salahealer9/e8-ternary-form-audit/releases/tag/v1.0.0"
 license: MIT
 message: >
   If you use this repository, software, or machine-readable E8 Cartan
@@ -13,8 +18,6 @@ authors:
   - given-names: "Salah-Eddin"
     family-names: "Gherbi"
     affiliation: "Independent Researcher, United Kingdom"
-
-version: "1.0.0"
 
 abstract: >
   Exact computational realization and validation of the normalized E8
