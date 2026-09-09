@@ -1,0 +1,663 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\e}{\mathfrak e}
+\newcommand{\h}{\mathfrak h}
+\newcommand{\PhiE}{\Phi(E_8)}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\RRR}{\mathrm{RRR}}
+\newcommand{\HRR}{\mathrm{HRR}}
+
+\title{\textbf{An Exact Sparse Realization of the $E_8$ Cartan 3-Form}}
+\author{Salah-Eddin Gherbi\\
+Independent Researcher, United Kingdom\\
+Corresponding author: \texttt{salahealer@gmail.com}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give an exact sparse realization of the normalized Cartan 3-form \(g(X,Y,Z)=B_0(X,[Y,Z])\) for the Chevalley \(\mathbb Q\)-form of \(E_8\) in a fixed \(\epsilon\)-canonical Chevalley basis. Among the \(248^3=15{,}252{,}992\) ordered basis triples, exactly \(16{,}176\) have nonzero coefficient: \(13{,}440\) in the root--root--root sector and \(2{,}736\) in the Cartan--root--root sector. The complete nonzero coefficient census is \(-2:24,-1:8064,+1:8064,+2:24\). On root vectors, support is exactly the zero-sum relation \(\alpha+\beta+\gamma=0\), giving a 240-vertex, 2240-edge linear 3-uniform hypergraph. We derive the headline counts analytically, construct the signed tensor by two algorithmically distinct exact routes, and validate it against an independently reconstructed \(E_8\) bracket and invariant form. Exhaustive Jacobi verification covers all \(2{,}511{,}496\) distinct basis triples, and raising the first tensor index recovers all \(61{,}504\) ordered basis brackets exactly. The underlying Lie-theoretic structures are classical; the contribution is the explicit sparse computational realization, coefficient census, deterministic machine-readable representation, and reproducible validation architecture.
+\end{abstract}
+
+\noindent\textbf{Keywords:}
+$E_8$ Lie algebra; Cartan 3-form; Chevalley basis; root systems;
+computational algebra; sparse tensors; reproducible mathematics.
+
+\noindent\textbf{2020 Mathematics Subject Classification:}
+17B25; 17B20; 68W30.
+
+\noindent\textbf{Word count:} 3,495 (excluding references).
+
+
+\section{Introduction}
+
+The exceptional simple Lie algebra $\e_8$ has rank $8$, dimension $248$, and a root system of $240$ roots.  Exact realizations of its multiplication are classical: Chevalley bases give integral structure constants, explicit $E_8$ commutation data have been tabulated, and modern formulas provide canonical structure constants in simply-laced types, including $E_8$ \cite{Djokovic2000,GeckLang2025}.  Explicit formulas for the $E_8$ bracket also exist in alternative realizations \cite{Kollross2025}, while recent public software provides sparse machine-readable structure constants \cite{McGirl2026}.
+
+Given an invariant nondegenerate symmetric bilinear form $B$, the Lie bracket can be lowered to the alternating trilinear form
+\begin{equation}\label{eq:cartan3}
+\Omega(X,Y,Z)=B(X,[Y,Z]).
+\end{equation}
+This Cartan 3-form is a classical object associated with a simple Lie algebra and has been studied geometrically and multisymplectically; see, for example, \cite{Le2013}.  In mathematical physics the same lowering appears as a completely antisymmetric structure tensor, and explicit $E_8$ formulas in other bases occur in supergravity and related work \cite{KoepsellNicolaiSamtleben1999}.  Our purpose is therefore not to introduce a new invariant.  Instead, we ask for a complete exact sparse realization of the normalized $E_8$ Cartan 3-form in a fixed $\epsilon$-canonical Chevalley basis, together with a transparent combinatorial description of its support, a deterministic machine-readable representation, and an independent exact validation chain.
+
+Writing $b_a$ for the basis elements fixed below, organizing the multiplication law as the scalar alternating tensor $g_{abc}=B_0(b_a,[b_b,b_c])$, rather than only as the vector-valued bracket $C^a{}_{bc}$, makes its support particularly transparent.  On root vectors the support is precisely the zero-sum ternary relation
+\begin{equation}\label{eq:rootsupportintro}
+\Omega(e_\alpha,e_\beta,e_\gamma)\neq 0
+\quad\Longleftrightarrow\quad
+\alpha+\beta+\gamma=0.
+\end{equation}
+This gives $13{,}440$ ordered root-sector coefficients, or $2240$ unordered zero-sum triples.  Equivalently, the root support is a $3$-uniform hypergraph on $240$ vertices with degree $28$ and pair codegree $0$ or $1$.  The counts $2240$ and $1120$ related $A_2$ classes are consistent with established $E_8$ combinatorics \cite{Manivel2006,BordnerMantonSasaki2000,WinterVanLuijk2021,BohningBothmerMarquand2026}; no novelty is claimed for those counts themselves.
+
+After the Cartan directions are included, the complete sparse support has
+\begin{equation}\label{eq:16176intro}
+13{,}440+2{,}736=16{,}176
+\end{equation}
+ordered nonzero coefficients.  In the basis and normalization fixed below, their multiplicities are
+\begin{equation}\label{eq:spectrumintro}
+-2:24,\qquad -1:8064,\qquad +1:8064,\qquad +2:24.
+\end{equation}
+Both \eqref{eq:16176intro} and \eqref{eq:spectrumintro} admit short analytic derivations from the standard $E_8$ root inner-product census and alternation; the computer implementation independently reproduces those counts.
+
+The full signed sparse tensor is constructed by two algorithmically distinct exact routes: one directly from ordered Lie brackets and invariant pairings, and one from canonical unordered root triples and opposite-root lines followed by alternating extension.  The resulting sparse coefficient maps agree entry-for-entry.  The final tensor is serialized deterministically, with exact integer coefficients and fixed basis/sign metadata.
+
+For validation, the bracket and normalized bilinear form are then reconstructed independently of the tensor.  The resulting algebra closes exactly, is antisymmetric, and satisfies Jacobi on all
+\[
+\binom{248}{3}=2{,}511{,}496
+\]
+distinct basis triples.  From this independently validated algebra we reconstruct $B_0(X,[Y,Z])$ and recover the sealed sparse tensor entry-for-entry.  Conversely, because $B_0$ is nondegenerate, raising the first index of the trilinear tensor recovers the bracket; this equality is verified on all $248^2=61{,}504$ ordered basis pairs.  Thus the sparse $3$-form is not only a support representation but an exact lowered encoding of the complete $E_8$ multiplication law in the stated normalization.
+
+The paper is organized as follows.  Section~\ref{sec:methods} fixes the $E_8$ root, basis, sign, and bilinear-form conventions and the exact construction framework.  Section~\ref{sec:results} presents the zero-sum incidence structure, complete sparse Cartan 3-form, exact validation, and machine-readable realization.  Section~\ref{sec:discussion} places the construction against prior art, discusses its computational interpretation and scope, and concludes.
+
+\section{Materials and methods}\label{sec:methods}
+
+\subsection{Conventions and the \texorpdfstring{$\epsilon$-canonical $E_8$}{epsilon-canonical E8} basis}\label{sec:conventions}
+
+We work first with the Chevalley $\mathbb Q$-form $\mathfrak g_{\mathbb Q}$ of the split simple Lie algebra of type $E_8$.  All basis coefficients, structure constants, tensor entries, and validation identities are therefore exact over $\mathbb Q$.  Scalar extension gives the corresponding split real algebra $\mathfrak g_{\mathbb R}=\mathfrak g_{\mathbb Q}\otimes_{\mathbb Q}\mathbb R$ or complex algebra $\mathfrak g_{\mathbb C}=\mathfrak g_{\mathbb Q}\otimes_{\mathbb Q}\mathbb C$ without changing the coefficient formulas below.  For notational economy we write $\mathfrak e_8$ when no distinction of ground field is relevant.
+
+\subsubsection{The root system}
+
+We use standard root-space conventions for semisimple Lie algebras \cite{Humphreys1972}.  We realize the $E_8$ root system $\PhiE\subset\mathbb R^8$ with the Euclidean inner product and root norm
+\[
+(\alpha,\alpha)=2.
+\]
+The roots are the union of the $112$ vectors obtained by permuting
+\[
+(\pm1,\pm1,0,0,0,0,0,0)
+\]
+and the $128$ vectors
+\[
+\frac12(\pm1,\ldots,\pm1)
+\]
+with an even number of minus signs.  Thus $|\PhiE|=240$.  For exact computation we internally use doubled coordinates $q=2\alpha\in\mathbb Z^8$; then $(q,q)=8$ for every root.
+
+For a fixed root $\alpha$, the standard $E_8$ inner-product census is
+\begin{equation}\label{eq:innercensus}
+\#\{\beta:(\alpha,\beta)=-2,-1,0,+1,+2\}
+=
+(1,56,126,56,1),
+\end{equation}
+where the $+2$ entry is $\beta=\alpha$ and the $-2$ entry is $\beta=-\alpha$ \cite{WinterVanLuijk2021}.  This simple census drives several of the sparse-support formulas below.
+
+\subsubsection{Simple roots and Cartan matrix}
+
+We use the simple roots listed in doubled coordinates in Table~\ref{tab:simpleroots}.  Dividing by two gives the corresponding roots in the norm-$2$ convention.  Their Gram matrix is the $E_8$ Cartan matrix
+\begin{equation}\label{eq:cartanmatrix}
+A=
+\begin{pmatrix}
+2&-1&0&0&0&0&0&0\\
+-1&2&-1&0&0&0&0&0\\
+0&-1&2&-1&0&0&0&0\\
+0&0&-1&2&-1&0&0&0\\
+0&0&0&-1&2&-1&0&-1\\
+0&0&0&0&-1&2&-1&0\\
+0&0&0&0&0&-1&2&0\\
+0&0&0&0&-1&0&0&2
+\end{pmatrix}.
+\end{equation}
+Its determinant is $1$.  Every root has an exact integral expansion
+\[
+\alpha=\sum_{i=1}^8 n_i\alpha_i,
+\]
+and we write
+\[
+\operatorname{ht}(\alpha)=\sum_i n_i.
+\]
+For the chosen positive system there are $120$ positive and $120$ negative roots, and the heights range from $-29$ to $29$.
+
+
+\subsubsection{\texorpdfstring{$\epsilon$-canonical}{epsilon-canonical} Chevalley signs and invariant form}
+
+Let
+\[
+\e_8=\h\oplus\bigoplus_{\alpha\in\PhiE}\mathfrak g_\alpha
+\]
+be the root decomposition.  We choose root vectors $e_\alpha\in\mathfrak g_\alpha$ using the $\epsilon$-canonical Chevalley-basis formalism of Geck and Lang \cite{GeckLang2025}.  Relative to the simple-root ordering above, the frozen sign vector is
+\begin{equation}\label{eq:epsilon}
+\epsilon=(+1,-1,+1,-1,+1,-1,+1,-1).
+\end{equation}
+For $\alpha+\beta\in\PhiE$,
+\[
+[e_\alpha,e_\beta]=N_{\alpha,\beta}^{\epsilon}\,e_{\alpha+\beta},
+\qquad N_{\alpha,\beta}^{\epsilon}\in\{-1,+1\}.
+\]
+For opposite roots we use
+\begin{equation}\label{eq:oppositebracket}
+[e_\alpha,e_{-\alpha}]
+=(-1)^{\operatorname{ht}(\alpha)}h_\alpha,
+\qquad
+h_\alpha=\sum_i n_i h_i.
+\end{equation}
+
+We normalize the invariant symmetric bilinear form $B_0$ by
+\begin{equation}\label{eq:B0cartan}
+B_0(h_i,h_j)=a_{ij}.
+\end{equation}
+Invariance together with \eqref{eq:oppositebracket} gives
+\begin{equation}\label{eq:rootpairing}
+B_0(e_\alpha,e_{-\alpha})=(-1)^{\operatorname{ht}(\alpha)},
+\end{equation}
+while distinct non-opposite root spaces are orthogonal and $\h$ is orthogonal to all nonzero root spaces.  The sign split in \eqref{eq:rootpairing} is basis-dependent and is not an invariant of $E_8$.
+
+We order the basis as
+\begin{equation}\label{eq:basisorder}
+\mathcal B=(h_1,\ldots,h_8,e_{\alpha_0},\ldots,e_{\alpha_{239}}),
+\end{equation}
+where the roots are sorted lexicographically in doubled coordinates.  We write $b_a$ for the $a$th element of $\mathcal B$.  This fixes every coefficient reported below.
+
+\section{Results}\label{sec:results}
+
+\subsection{Zero-sum root incidence}\label{sec:incidence}
+
+\subsubsection{Root support of the Cartan 3-form}
+
+Define
+\begin{equation}\label{eq:gdef}
+g(X,Y,Z)=B_0(X,[Y,Z]).
+\end{equation}
+By invariance and antisymmetry of the Lie bracket, $g$ is an alternating trilinear form, i.e.
+\[
+g\in\Lambda^3(\e_8)^*.
+\]
+
+\begin{proposition}[Root-sector support]\label{prop:rootsupport}
+For $\alpha,\beta,\gamma\in\PhiE$,
+\[
+g(e_\alpha,e_\beta,e_\gamma)\neq0
+\quad\Longleftrightarrow\quad
+\alpha+\beta+\gamma=0.
+\]
+\end{proposition}
+
+\begin{proof}
+If $\beta+\gamma$ is neither a root nor zero, then $[e_\beta,e_\gamma]=0$.  If $\gamma=-\beta$, then $[e_\beta,e_{-\beta}]\in\h$, which pairs trivially with $e_\alpha$.  Otherwise, if $\beta+\gamma\in\PhiE$, then
+\[
+[e_\beta,e_\gamma]\in\mathfrak g_{\beta+\gamma}.
+\]
+The invariant form pairs $\mathfrak g_\alpha$ nontrivially only with $\mathfrak g_{-\alpha}$, so nonvanishing forces $\beta+\gamma=-\alpha$.  Conversely, if $\alpha+\beta+\gamma=0$, then $\beta+\gamma=-\alpha$ is a root, the bracket $[e_\beta,e_\gamma]$ is nonzero, and the opposite root spaces pair nondegenerately.
+\end{proof}
+
+When the sum vanishes, the normalized coefficient is
+\begin{equation}\label{eq:rrrcoeff}
+g(e_\alpha,e_\beta,e_\gamma)
+=N_{\beta,\gamma}^{\epsilon}(-1)^{\operatorname{ht}(\alpha)}\in\{-1,+1\}.
+\end{equation}
+Thus the root-sector support is determined entirely by the zero-sum ternary relation, while the sign depends on the chosen canonical basis convention.
+
+\subsubsection{Support census}
+
+\begin{proposition}[Ordered root-sector count]\label{prop:rrrcount}
+The number of ordered nonzero root--root--root coefficients is
+\[
+|\supp_{\RRR} g|=13{,}440.
+\]
+\end{proposition}
+
+\begin{proof}
+Fix $\beta\in\PhiE$.  By \eqref{eq:innercensus}, there are exactly $56$ roots $\gamma$ with $(\beta,\gamma)=-1$.  In a simply-laced root system this is equivalent to $\beta+\gamma\in\PhiE$.  The third root is then uniquely $\alpha=-(\beta+\gamma)$.  Therefore
+\[
+|\supp_{\RRR} g|=240\cdot56=13{,}440.
+\]
+\end{proof}
+
+\begin{corollary}\label{cor:2240}
+There are
+\[
+\frac{13{,}440}{6}=2240
+\]
+unordered zero-sum root triples.  Negation pairs these into $1120$ classes.
+\end{corollary}
+
+Indeed, if $\alpha+\beta+\gamma=0$, then the three roots have pairwise inner product $-1$, so the six roots $\{\pm\alpha,\pm\beta,\pm\gamma\}$ form an $A_2$ subsystem.  The negated triple gives the same subsystem, and conversely every $A_2$ subsystem contains exactly two zero-sum triples, exchanged by negation.  Thus the $1120$ negation classes are in bijection with the $1120$ $A_2$ root subsystems of $E_8$.  The latter count is listed explicitly by Bordner, Manton, and Sasaki \cite{BordnerMantonSasaki2000} and also derived directly from the $240\cdot56$ root-pair census in \cite{BohningBothmerMarquand2026}.  We use the zero-sum representation because it exposes the ternary support directly.
+
+\subsubsection{A \texorpdfstring{$3$}{3}-uniform root hypergraph}
+
+Let $\mathcal H=(V,E)$ have vertex set $V=\PhiE$ and edge set
+\[
+E=\bigl\{\{\alpha,\beta,\gamma\}:\alpha+\beta+\gamma=0\bigr\}.
+\]
+Then $|V|=240$ and $|E|=2240$.
+
+\begin{proposition}[Regularity]\label{prop:degree28}
+Every vertex of $\mathcal H$ has degree $28$.
+\end{proposition}
+
+\begin{proof}
+Fix $\alpha$.  There are $56$ roots $\beta$ with $(\alpha,\beta)=-1$.  Each hyperedge containing $\alpha$ contains exactly two such other roots, and either one determines the third root uniquely.  Hence $2\deg(\alpha)=56$.
+\end{proof}
+
+\begin{proposition}[Linearity]\label{prop:linearity}
+Any two distinct vertices lie in at most one hyperedge.  Equivalently, pair codegrees are $0$ or $1$.
+\end{proposition}
+
+\begin{proof}
+If $\{\alpha,\beta,\gamma\}$ is an edge, then $\gamma=-(\alpha+\beta)$, so a pair determines at most one third root.
+\end{proof}
+
+Consequently, the number of active unordered root pairs is
+\[
+3|E|=6720.
+\]
+The hypergraph is therefore a convenient finite data representation of the unsigned root support of $g$, rather than a new root-system invariant.
+
+\subsection{The complete sparse Cartan 3-form}\label{sec:sparse}
+
+\subsubsection{Sector structure}
+
+For the basis \eqref{eq:basisorder}, nonzero coefficients occur only in two sector types:
+\begin{enumerate}[label=(\roman*)]
+\item three root vectors, with the zero-sum criterion of Proposition~\ref{prop:rootsupport};
+\item one Cartan vector and an opposite pair $e_\alpha,e_{-\alpha}$.
+\end{enumerate}
+All sectors containing two or three Cartan entries vanish.
+
+For the second type,
+\begin{equation}\label{eq:hrrformula}
+g(h_i,e_\alpha,e_{-\alpha})
+=(-1)^{\operatorname{ht}(\alpha)}\alpha(h_i),
+\end{equation}
+with the other five orderings obtained by alternation.
+
+\begin{proposition}[Cartan evaluation census]\label{prop:114}
+For each simple Cartan direction $h_i$, exactly $114$ roots satisfy $\alpha(h_i)\neq0$.
+\end{proposition}
+
+\begin{proof}
+Because $E_8$ is simply laced, $\alpha(h_i)=(\alpha,\alpha_i)$.  Applying \eqref{eq:innercensus} to the fixed root $\alpha_i$, the values $-2,-1,0,+1,+2$ occur with multiplicities $1,56,126,56,1$.  Hence the nonzero multiplicity is $1+56+56+1=114$.
+\end{proof}
+
+\begin{proposition}[Ordered Cartan--root--root count]\label{prop:hrrcount}
+The number of ordered nonzero coefficients with one Cartan and two root arguments is
+\[
+|\supp_{\HRR}g|=2736.
+\]
+\end{proposition}
+
+\begin{proof}
+For one fixed Cartan position, Proposition~\ref{prop:114} gives
+\[
+8\cdot114=912
+\]
+nonzero ordered coefficients.  The Cartan argument can occupy any of the three positions, hence $3\cdot912=2736$.
+\end{proof}
+
+\begin{theorem}[Complete sparse support census]\label{thm:16176}
+In the frozen basis,
+\[
+|\supp g|=16{,}176.
+\]
+\end{theorem}
+
+\begin{proof}
+The only nonzero sectors are $\RRR$ and $\HRR$, so Propositions~\ref{prop:rrrcount} and \ref{prop:hrrcount} give
+\[
+|\supp g|=13{,}440+2{,}736=16{,}176.
+\]
+\end{proof}
+
+The complete ordered domain has size $248^3=15{,}252{,}992$, so the support density is
+\[
+\frac{16{,}176}{15{,}252{,}992}
+\approx 1.0605\times10^{-3},
+\]
+i.e. approximately $0.1061\%$.
+
+\subsubsection{Coefficient multiplicities}
+
+\begin{proposition}[Root-sector sign balance]\label{prop:rrrsigns}
+Among the $13{,}440$ nonzero root-sector coefficients,
+\[
+-1:6720,
+\qquad
++1:6720.
+\]
+\end{proposition}
+
+\begin{proof}
+Every unordered zero-sum root triple generates six ordered permutations.  Since $g$ is alternating, three even permutations have coefficient $c$ and three odd permutations have coefficient $-c$.  By \eqref{eq:rrrcoeff}, $|c|=1$.  Thus each of the $2240$ unordered triples contributes three coefficients of each sign.
+\end{proof}
+
+\begin{proposition}[Magnitude-two Cartan sector]\label{prop:mag2}
+Exactly $48$ ordered $\HRR$ coefficients have magnitude $2$, split as
+\[
+-2:24,
+\qquad
++2:24.
+\]
+\end{proposition}
+
+\begin{proof}
+For fixed $i$, the only roots with $|\alpha(h_i)|=2$ are $\pm\alpha_i$.  Hence each simple Cartan direction gives one underlying unordered basis triple
+\[
+\{h_i,e_{\alpha_i},e_{-\alpha_i}\}.
+\]
+There are eight such triples and six ordered permutations of each, giving $48$ magnitude-two coefficients.  Alternation splits them equally by sign.
+\end{proof}
+
+The remaining $2736-48=2688$ $\HRR$ coefficients have magnitude $1$, hence $1344$ of each sign.
+
+\begin{theorem}[Complete coefficient spectrum]\label{thm:spectrum}
+The complete nonzero coefficient spectrum is
+\[
+\boxed{
+-2:24,\qquad
+-1:8064,\qquad
++1:8064,\qquad
++2:24.}
+\]
+\end{theorem}
+
+\begin{proof}
+Combine Proposition~\ref{prop:rrrsigns} with the $\HRR$ contributions
+\[
+-2:24,\qquad -1:1344,\qquad +1:1344,\qquad +2:24.
+\]
+Then $6720+1344=8064$ for each unit sign.
+\end{proof}
+
+\begin{remark}
+The spectrum in Theorem~\ref{thm:spectrum} is a census in the fixed basis and normalization, not an intrinsic spectrum of $E_8$.  Rescaling root vectors or the invariant form changes coefficient values while leaving the abstract Cartan 3-form unchanged up to the corresponding normalization.
+\end{remark}
+
+\subsection{Independent construction and validation}\label{sec:validation}
+
+\subsubsection{Two algorithmically distinct exact tensor constructions}
+
+The complete sparse tensor was constructed by two algorithmically distinct exact routes.  They share the frozen basis, sign, and normalization conventions, but differ in how the signed support is generated.
+
+\paragraph{Route A: direct ordered construction.}
+For every ordered root pair $(\beta,\gamma)$ with $\beta+\gamma\in\PhiE$, set $\alpha=-(\beta+\gamma)$ and evaluate
+\[
+g(e_\alpha,e_\beta,e_\gamma)
+=N_{\beta,\gamma}^{\epsilon}B_0(e_\alpha,e_{-\alpha}).
+\]
+For the Cartan sector, evaluate \eqref{eq:hrrformula} separately for each Cartan position and each oriented opposite-root pair.  No permutation expansion is used to generate the primary map.
+
+\paragraph{Route B: alternating reconstruction.}
+Begin with the $2240$ canonical unordered zero-sum root triples and the canonical opposite-root lines.  Evaluate one ordering of each underlying nonzero basis triple and generate the other five orderings only by permutation parity.
+
+The resulting sparse maps contain $16{,}176$ entries each and agree exactly: there are zero direct-only keys, zero reconstruction-only keys, and zero shared keys with unequal coefficients.  This is stronger than agreement of aggregate counts: support and signed coefficients coincide entry-for-entry.
+
+\subsubsection{Independent reconstruction of the Lie algebra}
+
+To validate the tensor without using the tensor itself to define the algebra, the full bracket was reconstructed independently from the root arithmetic, canonical structure constants, Cartan-root evaluations, and opposite-root brackets.  Over the $248^2=61{,}504$ ordered basis-pair domain, exactly $15{,}504$ pairs have nonzero bracket.  This counts nonzero ordered input pairs $(i,j)$, not individual nonzero scalar structure-constant entries $C^k{}_{ij}$: an opposite-root bracket can have several Cartan components.  Thus this basis-pair census is distinct from sparse scalar-entry counts such as the $16{,}694$ nonzero $f_{ij}{}^k$ entries reported by public implementations.  The bracket closes in the frozen basis, is antisymmetric, and has zero self-brackets.
+
+The Jacobiator
+\[
+J(X,Y,Z)=[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]
+\]
+was then evaluated on every canonical triple of distinct basis elements.  Since antisymmetry of the bracket has already been established, the Jacobiator is alternating; triples with repeated basis elements therefore vanish identically.  It is consequently sufficient for exhaustive basis-level verification to check the $\binom{248}{3}$ distinct triples.  Table~\ref{tab:jacobi} gives the complete sector census.
+
+
+The bilinear form $B_0$ was also reconstructed independently.  Its sparse basis matrix contains $262$ nonzero ordered entries with nonzero value census
+\[
+-1:142,\qquad +1:112,\qquad +2:8.
+\]
+It is symmetric, its Cartan block has determinant $1$, and the opposite-root pairings make the root block nondegenerate.
+
+Two sparse trilinear maps were then formed independently,
+\[
+L(X,Y,Z)=B_0([X,Y],Z),
+\qquad
+R(X,Y,Z)=B_0(X,[Y,Z]).
+\]
+Each contains $16{,}176$ nonzero entries, and their exact comparison has zero key or coefficient discrepancies.  Hence the invariant-form identity is recovered computationally without reference to the previously constructed tensor.
+
+Finally, the algebra-derived map $R$ was compared with the already sealed sparse tensor.  Both support and coefficients agree entry-for-entry.
+
+\subsubsection{Recovering the bracket from \texorpdfstring{$g$}{g}}
+
+The sparse tensor is not merely a support detector.  Because $B_0$ is nondegenerate, it contains the full multiplication law after raising one index.
+
+\begin{proposition}[Bracket recovery]\label{prop:bracketrecovery}
+For all $Y,Z\in\e_8$,
+\[
+[Y,Z]=B_0^{-1}\bigl(g(\,\cdot\,,Y,Z)\bigr).
+\]
+In components,
+\[
+C^{a}{}_{bc}=B_0^{ad}g_{dbc},
+\]
+where $B_{0,ad}:=B_0(b_a,b_d)$ and $B_0^{ad}$ denotes the inverse matrix.
+\end{proposition}
+
+\begin{proof}
+By definition, $g(X,Y,Z)=B_0(X,[Y,Z])$ for every $X$.  Nondegeneracy of $B_0$ gives a unique vector $W$ such that $B_0(X,W)=g(X,Y,Z)$ for all $X$.  The vector $W=[Y,Z]$ satisfies this condition.
+\end{proof}
+
+In the implementation, Proposition~\ref{prop:bracketrecovery} was checked on all $61{,}504$ ordered basis pairs.  The recovered bracket and the independently frozen bracket had zero support or coefficient discrepancies.
+
+\subsection{Machine-readable realization and reproducibility}\label{sec:data}
+
+All computational stages use exact integer or rational arithmetic.  Roots are stored in doubled integral coordinates, the sparse tensor coefficients are integers, and arbitrary test vectors use exact rational coefficients.  No floating-point threshold is used to decide support or equality.
+
+The canonical sparse artifact contains one record for every nonzero ordered basis coefficient and includes:
+\begin{itemize}
+\item the $248$-element basis ordering;
+\item the $240$ doubled root coordinates;
+\item the canonical sign vector \eqref{eq:epsilon};
+\item the normalization $B_0(h_i,h_j)=a_{ij}$;
+\item the sector label $\RRR$ or $\HRR$;
+\item the exact integer coefficient.
+\end{itemize}
+
+The sealed artifact contains $16{,}176$ entries and has SHA-256
+\begin{center}
+\small\ttfamily
+43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8.
+\end{center}
+The source code, deterministic data artifact, validation suite, and reproducibility records are publicly available in the \texttt{e8-ternary-form-audit} repository at \url{https://github.com/salahealer9/e8-ternary-form-audit}.
+The frozen reproducibility release is \texttt{v1.0.0}, commit \texttt{2000d93478be897f0742191aafd173d71e481fbd}, archived on Zenodo at \url{https://doi.org/10.5281/zenodo.22676423}.
+The canonical sparse tensor artifact \nolinkurl{data/derived/phase3d_signed_sparse_cartan_form.json} has SHA-256 \nolinkurl{43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8}.
+
+The development workflow additionally uses signed version-control checkpoints and deterministic hash manifests so that protocol freezes, primary constructions, validation stages, and final artifacts are chronologically distinguishable.  The mathematical results in Sections~\ref{sec:incidence}--\ref{sec:sparse}, however, are stated independently of that workflow and can be checked analytically.
+
+\section{Discussion}\label{sec:discussion}
+
+\subsection{Prior art and contribution boundary}\label{sec:priorart}
+
+The Cartan 3-form itself is classical \cite{Le2013}.  Fully antisymmetric lowered $E_8$ structure constants have long been used in mathematical physics \cite{KoepsellNicolaiSamtleben1999}.  Explicit Chevalley constants for $E_8$ appear in Đoković's appendix \cite{Djokovic2000}, and modern canonical formulas for simply-laced simple Lie algebras are given by Geck and Lang \cite{GeckLang2025}.  Explicit formulas for the $E_8$ bracket are also available in alternative realizations \cite{Kollross2025}.  Recent public software provides machine-readable sparse $E_8$ brackets with $16{,}694$ nonzero scalar structure-constant entries $C^k{}_{ij}$ \cite{McGirl2026}.  This scalar-entry count is not the same object as the $15{,}504$ nonzero ordered basis-pair count used in Section~\ref{sec:validation}.
+
+The root combinatorics used here are likewise classical.  The $E_8$ root inner-product graph has been studied systematically \cite{WinterVanLuijk2021}; ternary/$A_2$ models of exceptional Lie algebras appear in Manivel's work \cite{Manivel2006}; and the exact count of $1120$ $A_2$ root subsystems appears explicitly in both older and recent literature \cite{BordnerMantonSasaki2000,BohningBothmerMarquand2026}.
+
+Accordingly, we do not claim a new $E_8$ invariant, a new Lie bracket, a new Chevalley basis, or discovery of the $2240$ zero-sum triples or $1120$ $A_2$ classes.  A dedicated prior-art audit found no equivalent complete realization in the sources searched for the combination presented here: the deterministic $16{,}176$-entry lowered Cartan 3-form in the stated basis and normalization, its complete coefficient census, the zero-sum root hypergraph as an explicit support data object, the two algorithmically distinct exact reconstruction routes, and the independent exhaustive sealed-artifact validation pipeline.  This is therefore best viewed as a computational/data/reproducibility contribution built from classical Lie-theoretic ingredients, rather than as a new theorem-level invariant.
+
+We deliberately avoid ``first'' or ``previously unknown'' claims: failure to locate an equivalent artifact is not proof of universal absence from the literature.
+
+\subsection{Computational interpretation and scope}\label{sec:discussion-scope}
+
+The sparse realization makes three aspects of the Cartan 3-form especially transparent.
+
+First, the root sector is combinatorial.  The unsigned support is exactly the zero-sum hypergraph on $\PhiE$, while the canonical Chevalley signs orient those admissible triples by coefficients $\pm1$.  In that sense, the root-sector tensor simultaneously provides an incidence predicate and a signed orientation.
+
+Second, adding the Cartan sector turns this incidence skeleton into the complete basis-level Cartan 3-form.  The extra $2736$ coefficients are precisely the simple-Cartan evaluations on opposite-root lines.  The appearance of magnitudes $2$ is fully controlled by the simple roots, while all other nonzero coefficients have magnitude $1$ in the chosen normalization.
+
+Third, the sparse tensor is an alternative computational representation of the multiplication law.  Together with $B_0$, it determines the bracket by Proposition~\ref{prop:bracketrecovery}.  Depending on a downstream task, one can therefore choose between the sparse bracket $C^a{}_{bc}$ and the fully alternating lowered tensor $g_{abc}$.  The latter can be useful when permutation symmetry and scalar contraction are more natural than vector-valued multiplication.
+
+The present paper intentionally stops at this representation layer.  Possible uses in invariant numerical schemes, exceptional-symmetry models, graph/hypergraph algorithms, or mathematical physics require separate problem-specific analysis.  No physical application is inferred merely from the existence of the sparse tensor.
+
+\subsection{Conclusions}\label{sec:conclusion}
+
+We have given an exact sparse realization of the normalized $E_8$ Cartan 3-form
+\[
+g(X,Y,Z)=B_0(X,[Y,Z])
+\]
+in a fixed $\epsilon$-canonical Chevalley basis.  The root-sector support is exactly the zero-sum ternary relation on the $240$ roots, giving $13{,}440$ ordered root-sector entries or $2240$ unordered hyperedges.  The Cartan--root--root sector contributes $2736$ further ordered entries, for a total sparse support of
+\[
+16{,}176.
+\]
+The complete nonzero coefficient multiplicities are
+\[
+-2:24,\qquad -1:8064,\qquad +1:8064,\qquad +2:24.
+\]
+These headline counts were derived analytically and independently reproduced computationally.
+
+Two exact tensor constructions agree entry-for-entry.  An independent reconstruction of the Lie bracket and invariant form satisfies Jacobi on all $2{,}511{,}496$ distinct basis triples and reproduces the sealed sparse tensor exactly.  Conversely, raising the first tensor index with $B_0^{-1}$ recovers all $61{,}504$ ordered basis brackets.  Thus the machine-readable $3$-form is a complete exact lowered representation of the $E_8$ multiplication law in the stated normalization.
+
+The underlying Lie-theoretic ingredients are classical.  The contribution of the present work is their explicit sparse realization, complete coefficient census, root-incidence packaging, deterministic data representation, and reproducible cross-validation architecture.
+
+
+\section*{Disclosure statement}
+
+The author reports no competing interests to declare.
+
+\section*{Funding}
+
+No funding was obtained for the research reported in this article or for the preparation of the manuscript.
+
+\section*{Data availability statement}
+
+The exact machine-readable data supporting the results of this study are publicly archived with the frozen reproducibility release on Zenodo at \url{https://doi.org/10.5281/zenodo.22676423}.  The canonical sparse Cartan 3-form artifact is \nolinkurl{data/derived/phase3d_signed_sparse_cartan_form.json}, with SHA-256 \nolinkurl{43b52b4116dfcf0dace332234b5c9dc50d95d51effb690aec8aebe39ad4f92e8}.
+
+\section*{Software and code availability}
+
+The complete source code, deterministic phase runners, automated validation suite, and reproducibility records are publicly available at \url{https://github.com/salahealer9/e8-ternary-form-audit}.  The frozen reproducibility release is \texttt{v1.0.0}, commit \nolinkurl{2000d93478be897f0742191aafd173d71e481fbd}, archived on Zenodo at \url{https://doi.org/10.5281/zenodo.22676423}.
+
+\section*{Author contributions}
+
+S.-E.G.\ is the sole author and was responsible for conceptualization, methodology, software, formal analysis, validation, investigation, data curation, and writing and review of the manuscript.
+
+\section*{Declaration of generative AI use}
+
+The author used OpenAI ChatGPT (GPT-5.6 Sol) during the research and manuscript-preparation workflow for idea exploration, software coding assistance, computational organization, diagnostic review, consistency checking, structural review, and language refinement. All mathematical definitions, conventions, computations, references, claims, and conclusions reported in this article were reviewed and verified by the author. The numerical and combinatorial results are generated independently by the deposited deterministic source code and machine-readable data rather than by the language model.  The generative AI system is not listed as an author and made no autonomous scientific or publication decisions.  The author takes full responsibility for the originality, accuracy, integrity, references, and conclusions of the submitted work.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\appendix
+\section{Basis and combinatorial summary}
+
+For convenience, Table~\ref{tab:summary} collects the principal finite counts used in the paper.
+
+
+\section{Coefficient formulas}
+
+For ease of implementation, the two nonzero sector formulas are
+\[
+g(e_\alpha,e_\beta,e_\gamma)
+=
+N_{\beta,\gamma}^{\epsilon}(-1)^{\operatorname{ht}(\alpha)}
+\quad\text{if }\alpha+\beta+\gamma=0,
+\]
+and
+\[
+g(h_i,e_\alpha,e_{-\alpha})
+=(-1)^{\operatorname{ht}(\alpha)}\alpha(h_i),
+\]
+with all other orderings determined by alternation.  All HHH and HHR sectors vanish.
+
+
+% Tables placed after the appendices in accordance with journal instructions.
+
+\begin{table}[p]
+\centering
+\small
+\caption{Frozen simple roots in doubled coordinates $q=2\alpha$.}
+\label{tab:simpleroots}
+\begin{tabular}{c@{\qquad}l}
+\toprule
+$i$ & $2\alpha_i$\\
+\midrule
+1 & $(2,-2,0,0,0,0,0,0)$\\
+2 & $(0,2,-2,0,0,0,0,0)$\\
+3 & $(0,0,2,-2,0,0,0,0)$\\
+4 & $(0,0,0,2,-2,0,0,0)$\\
+5 & $(0,0,0,0,2,-2,0,0)$\\
+6 & $(0,0,0,0,0,2,2,0)$\\
+7 & $(-1,-1,-1,-1,-1,-1,-1,-1)$\\
+8 & $(0,0,0,0,0,2,-2,0)$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[p]
+\centering
+\caption{Exhaustive Jacobi audit.}
+\label{tab:jacobi}
+\begin{tabular}{lrr}
+\toprule
+sector & triples checked & failures\\
+\midrule
+HHH & 56 & 0\\
+HHR & 6,720 & 0\\
+HRR & 229,440 & 0\\
+RRR & 2,275,280 & 0\\
+\midrule
+total & 2,511,496 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[p]
+\centering
+\caption{Principal exact counts.}
+\label{tab:summary}
+\begin{tabular}{lr}
+\toprule
+quantity & count\\
+\midrule
+$E_8$ roots & 240\\
+unordered zero-sum root triples & 2240\\
+ordered RRR support & 13,440\\
+$A_2$/negation classes & 1120\\
+hypergraph degree & 28\\
+active unordered root pairs & 6720\\
+ordered HRR support & 2736\\
+total nonzero $g_{ijk}$ & 16,176\\
+full ordered tensor domain & 15,252,992\\
+nonzero ordered bracket pairs & 15,504\\
+distinct basis triples checked for Jacobi & 2,511,496\\
+ordered basis pairs checked for bracket recovery & 61,504\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
