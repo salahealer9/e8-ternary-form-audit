@@ -1,0 +1,544 @@
+{
+  "assessment_summary": {
+    "C0": {
+      "COUNTS_AGAINST": 5,
+      "NEUTRAL": 1,
+      "NOT_ASSESSABLE": 0,
+      "SUPPORTS": 1
+    },
+    "C1": {
+      "COUNTS_AGAINST": 0,
+      "NEUTRAL": 0,
+      "NOT_ASSESSABLE": 0,
+      "SUPPORTS": 7
+    },
+    "C2": {
+      "COUNTS_AGAINST": 1,
+      "NEUTRAL": 0,
+      "NOT_ASSESSABLE": 0,
+      "SUPPORTS": 6
+    },
+    "C3": {
+      "COUNTS_AGAINST": 2,
+      "NEUTRAL": 0,
+      "NOT_ASSESSABLE": 0,
+      "SUPPORTS": 5
+    },
+    "C4": {
+      "COUNTS_AGAINST": 1,
+      "NEUTRAL": 0,
+      "NOT_ASSESSABLE": 0,
+      "SUPPORTS": 6
+    }
+  },
+  "assessment_vocabulary": [
+    "COUNTS_AGAINST",
+    "NEUTRAL",
+    "NOT_ASSESSABLE",
+    "SUPPORTS"
+  ],
+  "candidate_neutral_literature_commit": "2852c4b",
+  "candidate_ranking_performed": false,
+  "candidates": {
+    "C0": "Generic ternary function",
+    "C1": "E8 Cartan 3-form",
+    "C2": "G2 invariant alternating 3-form",
+    "C3": "E6 cubic / symmetric trilinear form",
+    "C4": "Scalar triple product on oriented Euclidean R3"
+  },
+  "cells": [
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C0",
+      "caveat": "Three-argument arity is extremely common and has essentially no power to select an exceptional-Lie-theoretic structure.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K1",
+      "discrimination": "GENERIC",
+      "evidence": "By definition C0 is a generic function with three argument slots, matching the literal form g(v1,v2,v3)."
+    },
+    {
+      "assessment": "NEUTRAL",
+      "candidate": "C0",
+      "caveat": "The symbol v is suggestive but does not define a vector space or distinguish C0 from structured vector-valued candidates.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K2",
+      "discrimination": "GENERIC",
+      "evidence": "The labels v1,v2,v3 are compatible with vector arguments, but a generic ternary function has no intrinsic vector domain."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C0",
+      "caveat": "Particular generic functions can of course be chosen, but canonicality is not intrinsic to C0.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K3",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "A generic user-defined ternary function is not canonically determined by a standard mathematical structure."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C0",
+      "caveat": "A specially chosen function might be invariant, but that would add structure beyond C0.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K4",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "No nontrivial symmetry or invariance is intrinsic to an unspecified generic ternary function."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C0",
+      "caveat": "Geometric meaning would have to be supplied by an additional definition.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K5",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "C0 does not intrinsically encode geometry; it is the baseline arbitrary-function interpretation."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C0",
+      "caveat": "A metric relation could be imposed, but would no longer be information supplied by C0 itself.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K6",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "No bilinear metric or invariant bilinear form is intrinsic to a generic ternary function."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C0",
+      "caveat": "The literal notation contains no explicit E8 identifier.",
+      "chronology": [
+        "D0"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K7",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "C0 has no intrinsic association with E8."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "Arity alone does not distinguish C1 from C2, C3, C4, or many other ternary structures.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K1",
+      "discrimination": "GENERIC",
+      "evidence": "The Cartan 3-form intrinsically evaluates three Lie-algebra arguments, matching the three argument slots in D0."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "The v-labels are compatible with this interpretation but also with C2-C4.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K2",
+      "discrimination": "GENERIC",
+      "evidence": "Its arguments are naturally elements of the vector space underlying the Lie algebra e8."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "Canonicality is strong mathematical structure, but was not specified by D0.",
+      "chronology": [
+        "D3",
+        "D2"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K3",
+      "discrimination": "GENERIC",
+      "evidence": "For a simple Lie algebra the Cartan 3-form B(X,[Y,Z]) is natural up to the scale of the invariant bilinear form; the project froze and validated a normalization B0."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "Invariance is not unique to E8 and was not encoded in D0.",
+      "chronology": [
+        "D3",
+        "D2"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K4",
+      "discrimination": "GENERIC",
+      "evidence": "The Cartan 3-form is invariant under the relevant Lie-algebra automorphism/adjoint symmetry, and the reconstructed form was validated through exact invariant-form identities."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "This is genuine geometric content but is postulated only after choosing the C1 mathematical setting.",
+      "chronology": [
+        "D3",
+        "D2"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K5",
+      "discrimination": "GENERIC",
+      "evidence": "The Cartan 3-form encodes the Lie bracket together with an invariant bilinear geometry and is an established geometric structure associated with simple Lie algebras."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "This is a particularly clean K6 match, but D0 does not mention a metric, bracket, or bilinear form.",
+      "chronology": [
+        "D3",
+        "D2"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K6",
+      "discrimination": "GENERIC",
+      "evidence": "The relation is direct by definition: Omega(X,Y,Z)=B(X,[Y,Z])."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C1",
+      "caveat": "The Cartan-3-form construction as a class is not E8-exclusive. The E8 specificity comes from choosing e8 and its root system, neither of which is explicitly contained in D0.",
+      "chronology": [
+        "D3",
+        "D2"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K7",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "Once the Lie algebra is specified as e8, the form is directly defined on e8; the project further reproduced its E8 root-space support exactly from the independently constructed root system."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "Arity does not discriminate C2 from C1, C3, or C4.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K1",
+      "discrimination": "GENERIC",
+      "evidence": "The distinguished G2 form is intrinsically a 3-form and therefore takes three arguments."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "The v-labels are compatible but do not specify dimension seven.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K2",
+      "discrimination": "GENERIC",
+      "evidence": "Its arguments are naturally vectors in a seven-dimensional vector space."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "D0 does not contain a G2 identifier or a seven-dimensional constraint.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K3",
+      "discrimination": "GENERIC",
+      "evidence": "Once a G2 structure is specified, its defining positive 3-form is natural and canonical up to the usual equivalence."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "This is an exceptionally direct group/3-form relation, but no such stabilizer information appears in D0.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K4",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The stabilizer of the standard positive 3-form in GL(7,R) is G2."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "This is strong geometric content but was not predicted by D0.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K5",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The positive G2 3-form determines geometric data including a metric, orientation/volume form, and cross-product structure."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C2",
+      "caveat": "K6 therefore does not uniquely favor C1.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K6",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The form has a direct metric relation, for example phi(a,b,c)=<a x b,c>, and a positive G2 3-form itself determines the associated metric."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C2",
+      "caveat": "No direct E8 structure is intrinsic to the C2 candidate.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K7",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The defining association is with G2, not E8."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C3",
+      "caveat": "D0 gives no symmetry information capable of distinguishing symmetric C3 from alternating C1/C2/C4.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K1",
+      "discrimination": "GENERIC",
+      "evidence": "Polarization of the E6 cubic invariant gives an intrinsic three-argument symmetric trilinear form."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C3",
+      "caveat": "D0 supplies no dimension 27 or E6 identifier.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K2",
+      "discrimination": "GENERIC",
+      "evidence": "Its arguments are naturally vectors in the 27-dimensional E6 representation."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C3",
+      "caveat": "Canonicality does not by itself select C3 from C1 or C2.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K3",
+      "discrimination": "GENERIC",
+      "evidence": "The cubic invariant and its polarization are natural invariant structures on the relevant E6 representation, up to scale."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C3",
+      "caveat": "The symmetry group is E6 rather than E8, and D0 specifies neither.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K4",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The cubic/symmetric trilinear form is preserved by the E6 action."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C3",
+      "caveat": "Its geometric content is principally cubic/algebraic rather than the direct metric geometry present in C1, C2, or C4.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "MEDIUM",
+      "criterion": "K5",
+      "discrimination": "GENERIC",
+      "evidence": "The cubic norm is a non-arbitrary exceptional algebraic and geometric structure, for example in the exceptional Jordan algebra realization."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C3",
+      "caveat": "Auxiliary bilinear identifications exist in Jordan models, but E6 does not preserve the relevant pairing in the same direct sense as C1 or C2.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K6",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The defining E6 cubic is not naturally of the form B(x,operation(y,z)) for an E6-invariant bilinear metric on the 27-dimensional representation."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C3",
+      "caveat": "No intrinsic E8 association is supplied by C3.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K7",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The defining exceptional-group association is E6, not E8."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "This demonstrates that K1 is far from exceptional-Lie-specific.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K1",
+      "discrimination": "GENERIC",
+      "evidence": "The scalar triple product tau(u,v,w)=u dot (v cross w) intrinsically takes three arguments."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "The v-labels fit C4 at least as naturally as they fit C1-C3.",
+      "chronology": [
+        "D0",
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K2",
+      "discrimination": "GENERIC",
+      "evidence": "Its arguments are ordinary vectors in oriented Euclidean R3."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "Canonical ternary vector forms therefore occur outside exceptional Lie theory.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K3",
+      "discrimination": "GENERIC",
+      "evidence": "Once Euclidean metric and orientation are fixed, the associated volume 3-form is canonical."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "It changes sign under orientation reversal, so full O(3) scalar invariance is not claimed.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K4",
+      "discrimination": "GENERIC",
+      "evidence": "The scalar triple product is preserved by SO(3), the orientation-preserving orthogonal group."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "This is a strong geometric K5 match with no exceptional-group assumption.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K5",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "It measures oriented Euclidean volume and therefore directly encodes geometry."
+    },
+    {
+      "assessment": "SUPPORTS",
+      "candidate": "C4",
+      "caveat": "Therefore even a strong K6 match does not uniquely indicate C1.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K6",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "It is directly related to the Euclidean bilinear metric through the dot product in u dot (v cross w)."
+    },
+    {
+      "assessment": "COUNTS_AGAINST",
+      "candidate": "C4",
+      "caveat": "Its purpose here is specifically to control against inferring E8 from generic ternary geometric properties.",
+      "chronology": [
+        "D3"
+      ],
+      "confidence": "HIGH",
+      "criterion": "K7",
+      "discrimination": "DISCRIMINATING",
+      "evidence": "The scalar triple product has no intrinsic E8 association."
+    }
+  ],
+  "criteria": {
+    "K1": {
+      "definition": "Does the object intrinsically take three arguments?",
+      "name": "Arity match"
+    },
+    "K2": {
+      "definition": "Are its arguments naturally vectors, tangent vectors, representation vectors, or Lie-algebra elements?",
+      "name": "Vector-like domain match"
+    },
+    "K3": {
+      "definition": "Is the object canonically or naturally defined once the relevant mathematical structure is specified?",
+      "name": "Canonicality"
+    },
+    "K4": {
+      "definition": "Is the ternary object preserved by a nontrivial symmetry group?",
+      "name": "Invariance"
+    },
+    "K5": {
+      "definition": "Does it encode geometry rather than being an arbitrary user-defined function?",
+      "name": "Geometric content"
+    },
+    "K6": {
+      "definition": "Is there a precise relation to an ordinary bilinear metric or invariant bilinear form?",
+      "name": "Metric relation"
+    },
+    "K7": {
+      "definition": "Is the object intrinsically associated with E8 rather than connected through a discretionary chain of analogies?",
+      "name": "Direct E8 relevance"
+    }
+  },
+  "d0_compatible_criteria": {
+    "C0": [
+      "K1",
+      "K2"
+    ],
+    "C1": [
+      "K1",
+      "K2"
+    ],
+    "C2": [
+      "K1",
+      "K2"
+    ],
+    "C3": [
+      "K1",
+      "K2"
+    ],
+    "C4": [
+      "K1",
+      "K2"
+    ]
+  },
+  "d0_literal": "g(v1,v2,v3)",
+  "d1_status": "NOT_ASSESSABLE_NO_INDEPENDENTLY_FROZEN_CONTEMPORANEOUS_CONTEXT_USED",
+  "interpretation_class_selected": false,
+  "numerical_weights_used": false,
+  "phase4a_complete_commit": "0c27dae",
+  "phase5a_protocol_commit": "084d070",
+  "schema": "phase5a_candidate_criterion_matrix.v1",
+  "status": "PHASE5A_CANDIDATE_CRITERION_MATRIX_COMPLETE"
+}
