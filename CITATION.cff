@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+
+message: >
+  If you use this repository, software, or machine-readable E8 Cartan
+  3-form data, please cite the archived software release and the
+  accompanying manuscript.
+
+type: software
+
+title: "E8 Ternary Form Audit: Exact Sparse Realization of the E8 Cartan 3-Form"
+
+authors:
+  - given-names: "Salah-Eddin"
+    family-names: "Gherbi"
+    affiliation: "Independent Researcher, United Kingdom"
+
+version: "1.0.0"
+
+abstract: >
+  Exact computational realization and validation of the normalized E8
+  Cartan 3-form in a fixed epsilon-canonical Chevalley basis. The
+  repository provides the 16,176-entry sparse tensor, zero-sum root
+  incidence representation, exact Lie-algebra reconstruction, exhaustive
+  Jacobi validation, bracket recovery, deterministic artifacts, and
+  reproducibility records accompanying the manuscript
+  "An Exact Sparse Realization of the E8 Cartan 3-Form."
+
+keywords:
+  - E8
+  - Cartan 3-form
+  - exceptional Lie algebra
+  - Chevalley basis
+  - root system
+  - sparse tensor
+  - exact computation
+  - reproducible research
+
+preferred-citation:
+  type: unpublished
+  title: "An Exact Sparse Realization of the E8 Cartan 3-Form"
+  authors:
+    - given-names: "Salah-Eddin"
+      family-names: "Gherbi"
+      affiliation: "Independent Researcher, United Kingdom"
+  year: 2026
+  month: 9
+  notes: "Manuscript version 1.0, September 2026."
