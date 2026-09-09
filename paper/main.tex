@@ -36,7 +36,7 @@
 
 \title{\textbf{An Exact Sparse Realization of the $E_8$ Cartan 3-Form}}
 \author{Salah-Eddin Gherbi\\Independent Researcher, United Kingdom}
-\date{Draft v0.4 --- September 2026}
+\date{September 2026}
 
 \begin{document}
 \maketitle
@@ -69,7 +69,7 @@ Given an invariant nondegenerate symmetric bilinear form $B$, the Lie bracket ca
 \end{equation}
 This Cartan 3-form is a classical object associated with a simple Lie algebra and has been studied geometrically and multisymplectically; see, for example, \cite{Le2013}.  In mathematical physics the same lowering appears as a completely antisymmetric structure tensor, and explicit $E_8$ formulas in other bases occur in supergravity and related work \cite{KoepsellNicolaiSamtleben1999}.  Our purpose is therefore not to introduce a new invariant.  Instead, we ask for a complete exact sparse realization of the normalized $E_8$ Cartan 3-form in a fixed $\epsilon$-canonical Chevalley basis, together with a transparent combinatorial description of its support, a deterministic machine-readable representation, and an independent exact validation chain.
 
-Organizing the multiplication law as the scalar alternating tensor $g_{abc}=B_0(B_a,[B_b,B_c])$, rather than only as the vector-valued bracket $C^a{}_{bc}$, makes its support particularly transparent.  On root vectors the support is precisely the zero-sum ternary relation
+Writing $b_a$ for the basis elements fixed below, organizing the multiplication law as the scalar alternating tensor $g_{abc}=B_0(b_a,[b_b,b_c])$, rather than only as the vector-valued bracket $C^a{}_{bc}$, makes its support particularly transparent.  On root vectors the support is precisely the zero-sum ternary relation
 \begin{equation}\label{eq:rootsupportintro}
 \Omega(e_\alpha,e_\beta,e_\gamma)\neq 0
 \quad\Longleftrightarrow\quad
@@ -209,7 +209,7 @@ We order the basis as
 \begin{equation}\label{eq:basisorder}
 \mathcal B=(h_1,\ldots,h_8,e_{\alpha_0},\ldots,e_{\alpha_{239}}),
 \end{equation}
-where the roots are sorted lexicographically in doubled coordinates.  This fixes every coefficient reported below.
+where the roots are sorted lexicographically in doubled coordinates.  We write $b_a$ for the $a$th element of $\mathcal B$.  This fixes every coefficient reported below.
 
 \section{Zero-sum root incidence}\label{sec:incidence}
 
@@ -272,7 +272,7 @@ There are
 unordered zero-sum root triples.  Negation pairs these into $1120$ classes.
 \end{corollary}
 
-The $1120$ count is the familiar number of $A_2$ root subsystems of $E_8$; it is listed explicitly by Bordner, Manton, and Sasaki \cite{BordnerMantonSasaki2000} and also derived directly from the $240\cdot56$ root-pair census in \cite{BohningBothmerMarquand2026}.  We use the zero-sum representation because it exposes the ternary support directly.
+Indeed, if $\alpha+\beta+\gamma=0$, then the three roots have pairwise inner product $-1$, so the six roots $\{\pm\alpha,\pm\beta,\pm\gamma\}$ form an $A_2$ subsystem.  The negated triple gives the same subsystem, and conversely every $A_2$ subsystem contains exactly two zero-sum triples, exchanged by negation.  Thus the $1120$ negation classes are in bijection with the $1120$ $A_2$ root subsystems of $E_8$.  The latter count is listed explicitly by Bordner, Manton, and Sasaki \cite{BordnerMantonSasaki2000} and also derived directly from the $240\cdot56$ root-pair census in \cite{BohningBothmerMarquand2026}.  We use the zero-sum representation because it exposes the ternary support directly.
 
 \subsection{A \texorpdfstring{$3$}{3}-uniform root hypergraph}
 
@@ -509,8 +509,9 @@ For all $Y,Z\in\e_8$,
 \]
 In components,
 \[
-C^{a}{}_{bc}=B_0^{ad}g_{dbc}.
+C^{a}{}_{bc}=B_0^{ad}g_{dbc},
 \]
+where $B_{0,ad}:=B_0(b_a,b_d)$ and $B_0^{ad}$ denotes the inverse matrix.
 \end{proposition}
 
 \begin{proof}
@@ -548,7 +549,7 @@ The Cartan 3-form itself is classical \cite{Le2013}.  Fully antisymmetric lowere
 
 The root combinatorics used here are likewise classical.  The $E_8$ root inner-product graph has been studied systematically \cite{WinterVanLuijk2021}; ternary/$A_2$ models of exceptional Lie algebras appear in Manivel's work \cite{Manivel2006}; and the exact count of $1120$ $A_2$ root subsystems appears explicitly in both older and recent literature \cite{BordnerMantonSasaki2000,BohningBothmerMarquand2026}.
 
-Accordingly, we do not claim a new $E_8$ invariant, a new Lie bracket, a new Chevalley basis, or discovery of the $2240$ zero-sum triples or $1120$ $A_2$ classes.  A dedicated prior-art audit found no equivalent complete realization in the sources searched for the combination presented here: the deterministic $16{,}176$-entry lowered Cartan 3-form in the stated basis and normalization, its complete coefficient census, the zero-sum root hypergraph as an explicit support data object, the two-route exact reconstruction, and the independent exhaustive sealed-artifact validation pipeline.  This is therefore best viewed as a computational/data/reproducibility contribution built from classical Lie-theoretic ingredients, rather than as a new theorem-level invariant.
+Accordingly, we do not claim a new $E_8$ invariant, a new Lie bracket, a new Chevalley basis, or discovery of the $2240$ zero-sum triples or $1120$ $A_2$ classes.  A dedicated prior-art audit found no equivalent complete realization in the sources searched for the combination presented here: the deterministic $16{,}176$-entry lowered Cartan 3-form in the stated basis and normalization, its complete coefficient census, the zero-sum root hypergraph as an explicit support data object, the two algorithmically distinct exact reconstruction routes, and the independent exhaustive sealed-artifact validation pipeline.  This is therefore best viewed as a computational/data/reproducibility contribution built from classical Lie-theoretic ingredients, rather than as a new theorem-level invariant.
 
 We deliberately avoid ``first'' or ``previously unknown'' claims: failure to locate an equivalent artifact is not proof of universal absence from the literature.
 
