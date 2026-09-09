@@ -36,3 +36,6 @@ tmp/
 
 # Local manuscript build output
 paper/main.pdf
+
+# Journal submission build products
+paper/submissions/*/main.pdf
