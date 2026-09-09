@@ -36,7 +36,7 @@
 
 \title{\textbf{An Exact Sparse Realization of the $E_8$ Cartan 3-Form}}
 \author{Salah-Eddin Gherbi\\Independent Researcher, United Kingdom}
-\date{Draft v0.3 --- September 2026}
+\date{Draft v0.4 --- September 2026}
 
 \begin{document}
 \maketitle
@@ -46,32 +46,30 @@ The Cartan 3-form of a semisimple Lie algebra is the alternating trilinear form
 \[
 \Omega(X,Y,Z)=B(X,[Y,Z]),
 \]
-where $B$ is an invariant nondegenerate bilinear form.  We give an exact sparse realization of this form for $\mathfrak e_8$ in a fixed $\epsilon$-canonical Chevalley basis and a fixed normalization $B_0$ of the invariant form.  In this basis the complete ordered domain contains $248^3=15{,}252{,}992$ triples, of which exactly $16{,}176$ have nonzero coefficient.  These split into $13{,}440$ root--root--root coefficients and $2{,}736$ Cartan--root--root coefficients.  The complete nonzero coefficient spectrum is
+where $B$ is an invariant nondegenerate bilinear form.  We give an exact sparse realization of this form for the Chevalley $\mathbb Q$-form of $\mathfrak e_8$, in a fixed $\epsilon$-canonical Chevalley basis and a fixed normalization $B_0$.  Among the $248^3=15{,}252{,}992$ ordered basis triples, exactly $16{,}176$ have nonzero coefficient: $13{,}440$ in the root--root--root sector and $2{,}736$ in the Cartan--root--root sector.  The complete nonzero coefficient spectrum is
 \[
 -2:24,\qquad -1:8064,\qquad +1:8064,\qquad +2:24.
 \]
-The root-sector support is identified with the zero-sum ternary incidence relation on the $240$ roots of $E_8$:
+On root vectors, the support is exactly the zero-sum ternary incidence relation
 \[
-\Omega(e_\alpha,e_\beta,e_\gamma)\neq 0
+\Omega(e_\alpha,e_\beta,e_\gamma)\neq0
 \quad\Longleftrightarrow\quad
-\alpha+\beta+\gamma=0.
+\alpha+\beta+\gamma=0,
 \]
-This gives a $240$-vertex, $2240$-edge linear $3$-uniform hypergraph representation of the root support.  We derive the headline support counts analytically, construct the full signed sparse tensor by two algorithmically distinct exact routes, and validate the result by an independent reconstruction of the $248$-dimensional Lie bracket and invariant form.  The Jacobi identity is checked on all $\binom{248}{3}=2{,}511{,}496$ distinct basis triples, and the previously constructed sparse tensor is recovered entry-for-entry from $B_0(X,[Y,Z])$.  Finally, raising the first index of the sparse tensor with $B_0^{-1}$ recovers all $248^2=61{,}504$ ordered basis brackets exactly.  The mathematical structures used are classical; the contribution is an explicit sparse computational realization, complete coefficient census, root-incidence packaging, and reproducible validation architecture.
+which yields a $240$-vertex, $2240$-edge linear $3$-uniform hypergraph representation of the root support.  We derive the headline counts analytically, construct the full signed tensor by two algorithmically distinct exact routes, and validate it against an independently reconstructed $E_8$ bracket and invariant form.  Jacobi is checked on all $\binom{248}{3}=2{,}511{,}496$ distinct basis triples; the independently reconstructed map $B_0(X,[Y,Z])$ reproduces the sparse tensor entry-for-entry; and raising its first index with $B_0^{-1}$ recovers all $248^2=61{,}504$ ordered basis brackets exactly.  The underlying Lie-theoretic structures are classical; the contribution is their explicit sparse computational realization, complete coefficient census, root-incidence representation, deterministic machine-readable form, and reproducible exact validation architecture.
 \end{abstract}
 
 \section{Introduction}
 
-The exceptional Lie algebra $\e_8$ is simultaneously one of the most rigid and one of the most computationally demanding finite-dimensional simple Lie algebras.  Its rank is $8$, its dimension is $248$, and its root system contains $240$ roots.  Exact computational models of $\e_8$ have a long history: Chevalley bases reduce the structure constants to integers, explicit $E_8$ commutation data have been tabulated, and modern formulas provide canonical structure constants in simply-laced types, including $E_8$ \cite{Djokovic2000,GeckLang2025}.  Explicit formulas for the $E_8$ bracket also exist in alternative realizations \cite{Kollross2025}, while recent public software provides sparse machine-readable structure constants \cite{McGirl2026}.
+The exceptional simple Lie algebra $\e_8$ has rank $8$, dimension $248$, and a root system of $240$ roots.  Exact realizations of its multiplication are classical: Chevalley bases give integral structure constants, explicit $E_8$ commutation data have been tabulated, and modern formulas provide canonical structure constants in simply-laced types, including $E_8$ \cite{Djokovic2000,GeckLang2025}.  Explicit formulas for the $E_8$ bracket also exist in alternative realizations \cite{Kollross2025}, while recent public software provides sparse machine-readable structure constants \cite{McGirl2026}.
 
-A different but closely related object is the Cartan 3-form
+Given an invariant nondegenerate symmetric bilinear form $B$, the Lie bracket can be lowered to the alternating trilinear form
 \begin{equation}\label{eq:cartan3}
-\Omega(X,Y,Z)=B(X,[Y,Z]),
+\Omega(X,Y,Z)=B(X,[Y,Z]).
 \end{equation}
-where $B$ is an invariant nondegenerate symmetric bilinear form.  Cartan 3-forms are classical objects attached to simple Lie algebras and have been studied geometrically and multisymplectically; see, for example, \cite{Le2013}.  In physics, the same object appears as the fully lowered, completely antisymmetric structure tensor; explicit $E_8$ formulas in a different basis are standard in supergravity and related literature \cite{KoepsellNicolaiSamtleben1999}.
+This Cartan 3-form is a classical object associated with a simple Lie algebra and has been studied geometrically and multisymplectically; see, for example, \cite{Le2013}.  In mathematical physics the same lowering appears as a completely antisymmetric structure tensor, and explicit $E_8$ formulas in other bases occur in supergravity and related work \cite{KoepsellNicolaiSamtleben1999}.  Our purpose is therefore not to introduce a new invariant.  Instead, we ask for a complete exact sparse realization of the normalized $E_8$ Cartan 3-form in a fixed $\epsilon$-canonical Chevalley basis, together with a transparent combinatorial description of its support, a deterministic machine-readable representation, and an independent exact validation chain.
 
-The purpose of the present paper is therefore not to introduce a new invariant.  Instead, we ask for a complete exact sparse realization of the normalized $E_8$ Cartan 3-form in a fixed $\epsilon$-canonical Chevalley basis, together with a transparent combinatorial description of its support and an independent validation chain.  The construction is designed so that the main numerical statements can be derived analytically rather than inferred only from computer output.
-
-Our main results are as follows.  First, on root vectors the support of the Cartan 3-form is precisely the zero-sum ternary relation
+Organizing the multiplication law as the scalar alternating tensor $g_{abc}=B_0(B_a,[B_b,B_c])$, rather than only as the vector-valued bracket $C^a{}_{bc}$, makes its support particularly transparent.  On root vectors the support is precisely the zero-sum ternary relation
 \begin{equation}\label{eq:rootsupportintro}
 \Omega(e_\alpha,e_\beta,e_\gamma)\neq 0
 \quad\Longleftrightarrow\quad
@@ -79,25 +77,25 @@ Our main results are as follows.  First, on root vectors the support of the Cart
 \end{equation}
 This gives $13{,}440$ ordered root-sector coefficients, or $2240$ unordered zero-sum triples.  Equivalently, the root support is a $3$-uniform hypergraph on $240$ vertices with degree $28$ and pair codegree $0$ or $1$.  The counts $2240$ and $1120$ related $A_2$ classes are consistent with established $E_8$ combinatorics \cite{Manivel2006,BordnerMantonSasaki2000,WinterVanLuijk2021,BohningBothmerMarquand2026}; no novelty is claimed for those counts themselves.
 
-Second, after including the Cartan directions, the complete sparse support has
+After the Cartan directions are included, the complete sparse support has
 \begin{equation}\label{eq:16176intro}
 13{,}440+2{,}736=16{,}176
 \end{equation}
-ordered nonzero coefficients.  In the basis and normalization fixed below, the coefficient multiplicities are
+ordered nonzero coefficients.  In the basis and normalization fixed below, their multiplicities are
 \begin{equation}\label{eq:spectrumintro}
 -2:24,\qquad -1:8064,\qquad +1:8064,\qquad +2:24.
 \end{equation}
-The counts in \eqref{eq:16176intro} and \eqref{eq:spectrumintro} admit short analytic derivations from the standard $E_8$ root inner-product census and alternation.
+Both \eqref{eq:16176intro} and \eqref{eq:spectrumintro} admit short analytic derivations from the standard $E_8$ root inner-product census and alternation; the computer implementation independently reproduces those counts.
 
-Third, we construct the full signed sparse tensor by two algorithmically distinct exact routes: directly from ordered Lie brackets and invariant pairings, and from canonical unordered root triples/opposite-root lines followed by alternating extension.  The two sparse coefficient maps agree exactly.
+The full signed sparse tensor is constructed by two algorithmically distinct exact routes: one directly from ordered Lie brackets and invariant pairings, and one from canonical unordered root triples and opposite-root lines followed by alternating extension.  The resulting sparse coefficient maps agree entry-for-entry.  The final tensor is serialized deterministically, with exact integer coefficients and fixed basis/sign metadata.
 
-Finally, we reconstruct the bracket and normalized bilinear form independently of the tensor and validate the algebra exhaustively.  The Jacobi identity is checked on all
+For validation, the bracket and normalized bilinear form are then reconstructed independently of the tensor.  The resulting algebra closes exactly, is antisymmetric, and satisfies Jacobi on all
 \[
 \binom{248}{3}=2{,}511{,}496
 \]
-distinct basis triples.  We then reconstruct $B_0(X,[Y,Z])$ from this independently validated algebra and recover the sealed sparse tensor entry-for-entry.  Conversely, because $B_0$ is nondegenerate, the bracket is recovered from the trilinear tensor by raising its first index; this equality is verified on all $248^2=61{,}504$ ordered basis pairs.
+distinct basis triples.  From this independently validated algebra we reconstruct $B_0(X,[Y,Z])$ and recover the sealed sparse tensor entry-for-entry.  Conversely, because $B_0$ is nondegenerate, raising the first index of the trilinear tensor recovers the bracket; this equality is verified on all $248^2=61{,}504$ ordered basis pairs.  Thus the sparse $3$-form is not only a support representation but an exact lowered encoding of the complete $E_8$ multiplication law in the stated normalization.
 
-The paper is organized as follows.  Section~\ref{sec:conventions} fixes the $E_8$ root, basis, sign, and bilinear-form conventions.  Section~\ref{sec:incidence} develops the zero-sum ternary incidence structure.  Section~\ref{sec:sparse} constructs and counts the sparse Cartan 3-form.  Section~\ref{sec:validation} describes the two-route construction and independent algebraic validation.  Section~\ref{sec:data} specifies the machine-readable realization.  Section~\ref{sec:priorart} states the prior-art and novelty boundary explicitly, and Section~\ref{sec:discussion} discusses computational consequences.
+The paper is organized as follows.  Section~\ref{sec:conventions} fixes the $E_8$ root, basis, sign, and bilinear-form conventions.  Section~\ref{sec:incidence} develops the zero-sum ternary incidence structure.  Section~\ref{sec:sparse} constructs and counts the sparse Cartan 3-form.  Section~\ref{sec:validation} describes the two-route construction and independent algebraic validation.  Section~\ref{sec:data} specifies the machine-readable realization.  Section~\ref{sec:priorart} states the prior-art and contribution boundary explicitly, and Section~\ref{sec:discussion} discusses computational consequences.
 
 \section{Conventions and the \texorpdfstring{$\epsilon$-canonical $E_8$}{epsilon-canonical E8} basis}\label{sec:conventions}
 
